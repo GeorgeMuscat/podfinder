@@ -23,7 +23,7 @@ CREATE TABLE "player_prices" (
   "player_id" integer NOT NULL,
   "round_id" integer NOT NULL,
   "price" integer,
-  "primary" key(player_id,round_id)
+  PRIMARY KEY (player_id,round_id)
 );
 
 CREATE TABLE "teams" (
@@ -75,7 +75,7 @@ CREATE TABLE "player_match_stats" (
   "to" integer,
   "sai" integer,
   "efig" integer,
-  "primary" key(player_id,match_id,team_id)
+  PRIMARY KEY (player_id,match_id,team_id)
 );
 
 CREATE TABLE "match_stats" (
