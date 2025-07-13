@@ -19,7 +19,13 @@ def get_all_player_data():
     return [{**player, "match_stats": pull_player_stats(player["id"])} for player in players]
 
 def upsert_player_info(external_player_info: dict):
-    # First check if player with the
+    # First check if player with the external ID already exists
+
+    # If it does, update the existing record
+
+    # If it doesn't, insert a new record
+
+    # nvm can just do INSERT OR REPLACE INTO
     pass
 
 
