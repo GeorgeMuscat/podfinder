@@ -1,0 +1,111 @@
+CREATE TABLE "players" (
+  "id" integer PRIMARY KEY,
+  "first_name" varchar,
+  "last_name" varchar,
+  "dob" date,
+  "team_id" integer,
+  "primary_position_id" integer NOT NULL,
+  "secondary_position_id" integer
+);
+
+CREATE TABLE "positions" (
+  "id" integer PRIMARY KEY,
+  "name" varchar
+);
+
+CREATE TABLE "rounds" (
+  "id" integer PRIMARY KEY,
+  "round" integer,
+  "year" integer
+);
+
+CREATE TABLE "player_prices" (
+  "player_id" integer NOT NULL,
+  "round_id" integer NOT NULL,
+  "price" integer,
+  "primary" key(player_id,round_id)
+);
+
+CREATE TABLE "teams" (
+  "id" integer PRIMARY KEY,
+  "name" varchar
+);
+
+CREATE TABLE "matches" (
+  "id" integer PRIMARY KEY,
+  "round_id" integer NOT NULL,
+  "venue_id" integer NOT NULL,
+  "home_team_id" integer NOT NULL,
+  "away_team_id" integer NOT NULL,
+  "date" date
+);
+
+CREATE TABLE "venues" (
+  "id" integer PRIMARY KEY,
+  "name" varchar
+);
+
+CREATE TABLE "player_match_stats" (
+  "player_id" integer NOT NULL,
+  "match_id" integer NOT NULL,
+  "team_id" integer NOT NULL,
+  "mp" integer,
+  "t" integer,
+  "ts" integer,
+  "g" integer,
+  "fg" integer,
+  "ta" integer,
+  "lb" integer,
+  "lba" integer,
+  "tck" integer,
+  "tb" integer,
+  "mt" integer,
+  "ofh" integer,
+  "ofg" integer,
+  "er" integer,
+  "ftf" integer,
+  "mg" integer,
+  "km" integer,
+  "kd" integer,
+  "pc" integer,
+  "sb" integer,
+  "so" integer,
+  "tog" integer,
+  "fdo" integer,
+  "to" integer,
+  "sai" integer,
+  "efig" integer,
+  "primary" key(player_id,match_id,team_id)
+);
+
+CREATE TABLE "match_stats" (
+  "match_id" integer PRIMARY KEY NOT NULL,
+  "home_score" integer,
+  "away_score" integer
+);
+
+ALTER TABLE "players" ADD CONSTRAINT "player_primary_position" FOREIGN KEY ("primary_position_id") REFERENCES "positions" ("id");
+
+ALTER TABLE "players" ADD CONSTRAINT "player_secondary_position" FOREIGN KEY ("secondary_position_id") REFERENCES "positions" ("id");
+
+ALTER TABLE "player_prices" ADD CONSTRAINT "player" FOREIGN KEY ("player_id") REFERENCES "players" ("id");
+
+ALTER TABLE "player_prices" ADD CONSTRAINT "round" FOREIGN KEY ("round_id") REFERENCES "rounds" ("id");
+
+ALTER TABLE "players" ADD CONSTRAINT "team_players" FOREIGN KEY ("team_id") REFERENCES "teams" ("id");
+
+ALTER TABLE "matches" ADD CONSTRAINT "round" FOREIGN KEY ("round_id") REFERENCES "rounds" ("id");
+
+ALTER TABLE "matches" ADD CONSTRAINT "team_home_matches" FOREIGN KEY ("home_team_id") REFERENCES "teams" ("id");
+
+ALTER TABLE "matches" ADD CONSTRAINT "team_away_matches" FOREIGN KEY ("away_team_id") REFERENCES "teams" ("id");
+
+ALTER TABLE "matches" ADD CONSTRAINT "venue" FOREIGN KEY ("venue_id") REFERENCES "venues" ("id");
+
+ALTER TABLE "player_match_stats" ADD CONSTRAINT "player_stats" FOREIGN KEY ("player_id") REFERENCES "players" ("id");
+
+ALTER TABLE "player_match_stats" ADD CONSTRAINT "team_player_stats" FOREIGN KEY ("team_id") REFERENCES "teams" ("id");
+
+ALTER TABLE "player_match_stats" ADD CONSTRAINT "matches_player_stats" FOREIGN KEY ("match_id") REFERENCES "matches" ("id");
+
+ALTER TABLE "match_stats" ADD CONSTRAINT "match_stats_match" FOREIGN KEY ("match_id") REFERENCES "matches" ("id");
