@@ -18,6 +18,12 @@ def get_all_player_data():
 
     return [{**player, "match_stats": pull_player_stats(player["id"])} for player in players]
 
+def get_all_teams():
+    r = s.get(f"{BASE_URL}/nrl/squads.json")
+    r.raise_for_status()
+    return r.json()
+
+
 def upsert_player_info(external_player_info: dict):
     # First check if player with the external ID already exists
 

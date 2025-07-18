@@ -28,7 +28,10 @@ CREATE TABLE "player_prices" (
 
 CREATE TABLE "teams" (
   "id" integer PRIMARY KEY,
-  "name" varchar
+  "full_name" varchar,
+  "short_name" varchar,
+  "abbreviation" varchar,
+  "external_fantasy_id" integer
 );
 
 CREATE TABLE "matches" (
