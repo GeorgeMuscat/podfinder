@@ -31,7 +31,7 @@ CREATE TABLE "teams" (
   "full_name" varchar,
   "short_name" varchar,
   "abbreviation" varchar,
-  "external_fantasy_id" integer
+  "external_fantasy_id" integer UNIQUE,
 );
 
 CREATE TABLE "matches" (
