@@ -3,3 +3,4 @@
 __pycache__
 data/my-team/*.json
 .env
+data/db/data
