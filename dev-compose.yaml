@@ -1,7 +1,7 @@
 services:
 
   db:
-    image: postgres
+    image: postgres:17 # pinning to 17, as 18 is not fully released and has a different data mount path.
     # set shared memory limit when using docker compose
     shm_size: 128mb
     # or set shared memory limit when deploy via swarm stack
@@ -16,8 +16,8 @@ services:
       - 127.0.0.1:5432:5432
     volumes:
       - type: bind
-        source: ./data/db
-        target: /var/lib/postgresql
+        source: ./data/db/data
+        target: /var/lib/postgresql/data
   adminer:
     image: adminer
     restart: always
